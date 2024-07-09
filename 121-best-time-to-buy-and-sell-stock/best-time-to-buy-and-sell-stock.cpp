@@ -12,13 +12,24 @@ public:
         //     }
         // }
 
-        vector<int> aux = prices;
-        for(int i=aux.size()-2; i>=0; i--){
-            aux[i] = max(aux[i], aux[i+1]);
-        }
+        // This is a better solution as it uses extra space to store the 
+        // max price in the arr
+        // TC = O(n), SC = O(n)
+        // vector<int> aux = prices;
+        // for(int i=aux.size()-2; i>=0; i--){
+        //     aux[i] = max(aux[i], aux[i+1]);
+        // }
+        // int ans = 0;
+        // for(int i = 0; i<prices.size(); i++){
+        //     ans = max(ans, (aux[i]-prices[i]));
+        // }
+
+        int minSoFar = prices[0];
         int ans = 0;
-        for(int i = 0; i<prices.size(); i++){
-            ans = max(ans, (aux[i]-prices[i]));
+        for(int i = 1; i<prices.size(); i++){
+            minSoFar = min(minSoFar, prices[i]);
+            int profit = prices[i] - minSoFar;
+            ans = max(ans, profit);
         }
         return ans;
     }
